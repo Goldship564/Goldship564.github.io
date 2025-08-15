@@ -3,100 +3,135 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Goldship564 - Elegant Portfolio</title>
+<title>Goldship564 Portfolio & Gaming</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
   body, html {
     margin: 0; padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
-    color: #222;
+    font-family: 'Poppins', sans-serif;
     scroll-behavior: smooth;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #f0f0f0;
   }
   nav {
     position: fixed;
-    top: 0; left: 0; right: 0;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: flex-end;
-    padding: 1em 2em;
-    z-index: 100;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
   }
   nav ul {
-    list-style: none;
     display: flex;
-    margin: 0;
-    padding: 0;
+    justify-content: center;
+    list-style: none;
+    margin: 0; padding: 0;
   }
-  nav li {
-    margin-left: 2em;
+  nav ul li {
+    margin: 0 1.5rem;
   }
-  nav a {
+  nav ul li a {
+    color: #f0f0f0;
     text-decoration: none;
-    color: #555;
     font-weight: 600;
-    transition: color 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background 0.3s ease, color 0.3s ease;
   }
-  nav a.active,
-  nav a:hover {
-    color: #007acc;
+  nav ul li a:hover, nav ul li a.active {
+    background: #f0f0f0;
+    color: #764ba2;
   }
   section {
     min-height: 100vh;
-    padding: 120px 20px 60px 20px;
-    max-width: 800px;
+    padding: 140px 2rem 60px 2rem;
+    max-width: 900px;
     margin: 0 auto;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.8s ease, transform 0.8s ease;
   }
   section.active {
     opacity: 1;
     transform: translateY(0);
   }
   h1, h2 {
-    font-weight: 700;
-    margin-bottom: 0.5em;
+    text-align: center;
   }
   h1 {
     font-size: 3.5rem;
-    text-align: center;
-    color: #007acc;
+    margin-bottom: 0.3rem;
   }
   h2 {
-    font-size: 2rem;
-    border-bottom: 2px solid #007acc;
-    padding-bottom: 0.3em;
-    margin-bottom: 1em;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.3rem;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
   }
-  p {
+  .content {
     font-size: 1.1rem;
-    line-height: 1.6;
-    color: #444;
+    line-height: 1.7;
+    color: #dcdcdc;
+    max-width: 800px;
+    margin: 1rem auto;
+  }
+  #home {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  /* Responsive */
+  @media (max-width: 600px) {
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+    nav ul li {
+      margin: 0.5rem 0;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    section {
+      padding: 100px 1rem 40px 1rem;
+    }
   }
 </style>
 <script>
-  window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav a');
-    let current = '';
+  document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav ul li a");
 
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 150;
-      if(window.scrollY >= sectionTop) {
-        current = section.getAttribute('id');
-        section.classList.add('active');
-      } else {
-        section.classList.remove('active');
-      }
-    });
+    function showSection(id) {
+      sections.forEach(section => {
+        if(section.id === id) {
+          section.classList.add("active");
+        } else {
+          section.classList.remove("active");
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if(link.getAttribute("href") === "#" + id) {
+          link.classList.add("active");
+        }
+      });
+    }
 
     navLinks.forEach(link => {
-      link.classList.remove('active');
-      if(link.getAttribute('href') === '#' + current) {
-        link.classList.add('active');
-      }
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href").substring(1);
+        showSection(targetId);
+        history.pushState(null, null, "#" + targetId);
+      });
     });
+
+    // Show default section or based on URL hash
+    const currentSection = location.hash ? location.hash.substring(1) : "home";
+    showSection(currentSection);
   });
 </script>
 </head>
@@ -105,30 +140,39 @@
 <nav>
   <ul>
     <li><a href="#home" class="active">Home</a></li>
-    <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#work">Work</a></li>
     <li><a href="#gaming">Gaming</a></li>
   </ul>
 </nav>
 
 <section id="home" class="active">
   <h1>Goldship564</h1>
-  <p style="text-align:center;">Welcome to my elegant portfolio. Scroll down to explore my work and passions.</p>
-</section>
-
-<section id="about">
-  <h2>About Me</h2>
-  <p>I create clean, user-friendly websites and applications. This site highlights my projects, work, and gaming interests.</p>
+  <p class="content" style="text-align:center;">
+    Welcome! Explore my projects, professional work, and gaming passions.
+  </p>
 </section>
 
 <section id="projects">
   <h2>Projects</h2>
-  <p>Here are some of my recent projects demonstrating skill, creativity, and innovation in web and software development.</p>
+  <div class="content">
+    <p>Here are some of my cool projects. Showcase your software, websites, apps, or any creative work here.</p>
+  </div>
+</section>
+
+<section id="work">
+  <h2>Work</h2>
+  <div class="content">
+    <p>Highlight your professional experiences, internships, or freelance work here.</p>
+  </div>
 </section>
 
 <section id="gaming">
   <h2>Gaming</h2>
-  <p>I enjoy mobile games like Fate/Grand Order (FGO). Here, I share insights, strategies, and updates about the game.</p>
+  <div class="content">
+    <h3>Fate/Grand Order (FGO)</h3>
+    <p>FGO is a popular mobile game I really enjoy. I like discussing game strategies, updates, and characters. Feel free to join the conversation or share your thoughts!</p>
+  </div>
 </section>
 
 </body>
