@@ -3,112 +3,97 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Goldship564 - Cool Portfolio</title>
+<title>Goldship564 - Elegant Portfolio</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
   body, html {
     margin: 0; padding: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #222;
     scroll-behavior: smooth;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: #f0f0f0;
   }
   nav {
     position: fixed;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    z-index: 1000;
-  }
-  nav ul {
+    top: 0; left: 0; right: 0;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
     justify-content: flex-end;
+    padding: 1em 2em;
+    z-index: 100;
+  }
+  nav ul {
     list-style: none;
-    margin: 0; padding: 0;
+    display: flex;
+    margin: 0;
+    padding: 0;
   }
-  nav ul li {
-    margin-left: 1.8rem;
+  nav li {
+    margin-left: 2em;
   }
-  nav ul li a {
-    color: #f0f0f0;
+  nav a {
     text-decoration: none;
+    color: #555;
     font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: color 0.3s;
   }
-  nav ul li a:hover, nav ul li a.active {
-    background: #f0f0f0;
-    color: #764ba2;
+  nav a.active,
+  nav a:hover {
+    color: #007acc;
   }
   section {
     min-height: 100vh;
-    padding: 120px 2rem 60px 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 900px;
+    padding: 120px 20px 60px 20px;
+    max-width: 800px;
     margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  #home {
-    text-align: center;
+  section.active {
+    opacity: 1;
+    transform: translateY(0);
   }
-  #home h1 {
+  h1, h2 {
+    font-weight: 700;
+    margin-bottom: 0.5em;
+  }
+  h1 {
     font-size: 3.5rem;
-    margin-bottom: 0.3rem;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  }
-  #home p {
-    font-size: 1.3rem;
-    max-width: 600px;
-    margin: 0 auto;
-    text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+    text-align: center;
+    color: #007acc;
   }
   h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 0.3rem;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    font-size: 2rem;
+    border-bottom: 2px solid #007acc;
+    padding-bottom: 0.3em;
+    margin-bottom: 1em;
   }
-  .content {
+  p {
     font-size: 1.1rem;
-    line-height: 1.7;
-    color: #dcdcdc;
-  }
-  /* Responsive */
-  @media (max-width: 600px) {
-    nav ul {
-      justify-content: center;
-    }
-    nav ul li {
-      margin-left: 1rem;
-    }
-    #home h1 {
-      font-size: 2.5rem;
-    }
-    section {
-      padding: 100px 1rem 40px 1rem;
-    }
+    line-height: 1.6;
+    color: #444;
   }
 </style>
 <script>
-  // Highlight active section in nav menu
   window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav ul li a');
+    const navLinks = document.querySelectorAll('nav a');
     let current = '';
+
     sections.forEach(section => {
-      const sectionTop = section.offsetTop - 120;
-      if (pageYOffset >= sectionTop) {
+      const sectionTop = section.offsetTop - 150;
+      if(window.scrollY >= sectionTop) {
         current = section.getAttribute('id');
+        section.classList.add('active');
+      } else {
+        section.classList.remove('active');
       }
     });
+
     navLinks.forEach(link => {
       link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) {
+      if(link.getAttribute('href') === '#' + current) {
         link.classList.add('active');
       }
     });
@@ -116,39 +101,35 @@
 </script>
 </head>
 <body>
+
 <nav>
   <ul>
     <li><a href="#home" class="active">Home</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#gaming">Gaming</a></li>
   </ul>
 </nav>
 
-<section id="home">
+<section id="home" class="active">
   <h1>Goldship564</h1>
-  <p>Your cool portfolio starts here. Show off your projects and skills with style!</p>
+  <p style="text-align:center;">Welcome to my elegant portfolio. Scroll down to explore my work and passions.</p>
 </section>
 
 <section id="about">
   <h2>About Me</h2>
-  <div class="content">
-    <p>Hello! I am passionate about coding and creating beautiful websites. This portfolio showcases my journey and work. Let's build something amazing together!</p>
-  </div>
+  <p>I create clean, user-friendly websites and applications. This site highlights my projects, work, and gaming interests.</p>
 </section>
 
 <section id="projects">
   <h2>Projects</h2>
-  <div class="content">
-    <p>Check out my latest projects on GitHub, demonstrate your skills and innovations through appealing case studies and links.</p>
-  </div>
+  <p>Here are some of my recent projects demonstrating skill, creativity, and innovation in web and software development.</p>
 </section>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="content">
-    <p>Feel free to reach out via email or social media. Let’s connect and make great things happen!</p>
-  </div>
+<section id="gaming">
+  <h2>Gaming</h2>
+  <p>I enjoy mobile games like Fate/Grand Order (FGO). Here, I share insights, strategies, and updates about the game.</p>
 </section>
+
 </body>
 </html>
